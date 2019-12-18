@@ -16,6 +16,7 @@ steps:
   displayName: Build
   inputs:
     command: 'build'
+    projects: '**/*Test/*.sln'
 
 - task: DotNetCoreCLI@2
   displayName: Code coverage
