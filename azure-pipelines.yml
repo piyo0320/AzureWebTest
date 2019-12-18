@@ -22,7 +22,7 @@ steps:
   displayName: Code coverage
   inputs:
     command: test
-    projects: '**/*Tests/*.csproj'
+    projects: '**/*Tests/*.sln'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
 - script: |
