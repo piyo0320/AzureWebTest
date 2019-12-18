@@ -18,12 +18,12 @@ steps:
     command: 'build'
     projects: '**/*Test/*.sln'
 
-- task: DotNetCoreCLI@2
-  displayName: Code coverage
-  inputs:
-    command: test
-    projects: '**/*Test/*.sln'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+#- task: DotNetCoreCLI@2
+#  displayName: Code coverage
+#  inputs:
+#    command: test
+#    projects: '**/*Test/*.sln'
+#    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
