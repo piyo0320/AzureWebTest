@@ -23,14 +23,15 @@ steps:
     packageFeedSelector: 'nugetOrg'
     versionSelector: 'latestPreRelease'
 
-#- task: DotNetCoreCLI@2
-#  displayName: - task: VSTest@2
+- task: VSTest@2
+  inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
       **\*test*.dll
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
+    vsTestVersion: 'toolsInstaller'
 
 #  inputs:
 #    command: test
