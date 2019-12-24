@@ -24,7 +24,15 @@ steps:
     versionSelector: 'latestPreRelease'
 
 #- task: DotNetCoreCLI@2
-#  displayName: Code coverage
+#  displayName: - task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+
 #  inputs:
 #    command: test
 #    projects: '**/*Test/*.sln'
