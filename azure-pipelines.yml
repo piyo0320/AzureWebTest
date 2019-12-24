@@ -18,6 +18,11 @@ steps:
     command: 'build'
     projects: '**/*Test/*.sln'
 
+- task: VisualStudioTestPlatformInstaller@1
+  inputs:
+    packageFeedSelector: 'nugetOrg'
+    versionSelector: 'latestPreRelease'
+
 #- task: DotNetCoreCLI@2
 #  displayName: Code coverage
 #  inputs:
