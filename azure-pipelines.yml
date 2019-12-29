@@ -10,19 +10,24 @@ pool:
   vmImage: 'windows-2019'
 
 steps:
-#  - script: echo Hello, world!
-#    displayName: 'Run a one-line script'
+#
+# ソースのビルド
+#
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: 'build'
     projects: '**/*Test/*.sln'
-
+#
+# ビルド環境にテストツールのインストール
+#
 - task: VisualStudioTestPlatformInstaller@1
   inputs:
     packageFeedSelector: 'nugetOrg'
     versionSelector: 'latestPreRelease'
-
+#
+# 現状動いているように見えない
+#
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'
@@ -38,7 +43,30 @@ steps:
 #    projects: '**/*Test/*.sln'
 #    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
+#
+# デフォで書いてあったけどよくわからん
+#
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+#
+# Azure Web Appsへのデプロイ
+#
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(8ea09fa0-30cc-4730-ad25-c8156bbd26b7)'
+    appType: 'webApp'
+    WebAppName: 'test-AzureWebSite'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    enableCustomDeployment: true
+    DeploymentType: 'zipDeploy'
+#
+# Azure Web Appsを止めておく
+#
+- task: AzureAppServiceManage@0
+  inputs:
+    azureSubscription: 'Pay-As-You-Go(8ea09fa0-30cc-4730-ad25-c8156bbd26b7)'
+    Action: 'Stop Azure App Service'
+    WebAppName: 'test-AzureWebSite'
